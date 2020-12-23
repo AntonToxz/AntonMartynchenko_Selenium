@@ -1,19 +1,16 @@
-Feature epam website
+Feature: Epam website
 
   Scenario: Search specific keyword
     Given I should click on search button on menu bar
-    And I enter keyword
-    When I click find button
-    Then I should be able to get all results found on this website
-    And I should be on search page
-
+    When I enter keyword
+    And I click find button
+    Then I should be able to get all results found on this website and be on search page
 
   Scenario: Change language for website
     Given I am on main page
     When I click on language button on menu bar
     And I select language (Россия(Русский))
-    Then Everything on website should be translated to selected language
-    And I should be on main page
+    Then Everything on website should be translated to selected language and be on main page
 
 
   Scenario: Sending a letter/feedback/ask something
@@ -21,11 +18,7 @@ Feature epam website
     When I enter every field with information
     And I click on two check marks
     And I click on submit button
-    And I complete CAPTCHA
     Then I should stay on same page
-    And I get confirmation that email was sent
-    And I stay on same page
-    But i dont see fields to enter
 
 
   Scenario: Getting information about post(Continuum)
@@ -35,10 +28,11 @@ Feature epam website
 
 
   Scenario: Getting information on services/optimize page
-    Given I should be on services/optimize page
+    Given I should be on optimize page
     When I click on buttons
     Then I should get information below buttons
-    And If i click on another button information must change
+    But If click on another button
+    Then information must change
 
 
   Scenario: Search for dream job

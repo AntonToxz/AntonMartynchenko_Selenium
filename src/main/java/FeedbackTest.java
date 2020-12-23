@@ -32,8 +32,8 @@ public class FeedbackTest {
         //feedback.clickCheckbox1();
         //feedback.clickCheckbox2();
         List<WebElement> allCheckbox = driver.findElements(By.xpath("//input[@type='checkbox']"));  //?????????????
-        for (WebElement e : allCheckbox) {                                                          //?????????????
-            if (e.isSelected()) {                                                                   //????????????? element click intercepted: Element <button class="button-ui" type="submit">...</button> is not clickable at point
+        for (WebElement e : allCheckbox) {                                                          //?????????????org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <button class="button-ui" type="submit">...</button> is not clickable at point (1357, 901).
+            if (e.isSelected()) {                                                                   //?????????????Other element would receive the click: <span class="button__content">...</span>
                 e.click();                                                                          //?????????????
             }                                                                                       //?????????????
         }                                                                                           //?????????????
