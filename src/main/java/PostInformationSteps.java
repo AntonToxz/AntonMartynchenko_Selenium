@@ -1,0 +1,38 @@
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+
+public class PostInformationSteps {
+    public static PostInformation postInformation;
+    public static WebDriver driver;
+
+
+    @Given("I should be on main page")
+    public void iShouldBeOnMainPage() {
+        System.setProperty("webdriver.chrome.driver", ConfigProp.getProperty("chromedriver"));
+        driver = new ChromeDriver();
+        postInformation = new PostInformation(driver);
+        driver.manage().window().maximize();
+        driver.get(ConfigProp.getProperty("mainpage"));
+    }
+
+    @When("I click on Learn more button on exact post")
+    public void iClickOnLearnMoreButtonOnExactPost() {
+        postInformation.clickLearnMoreButt();
+    }
+
+    @Then("I am directed to exact page with this post")
+    public void iAmDirectedToExactPageWithThisPost() {
+        try {
+            Assert.assertEquals("EPAM Continuum | EPAM", driver.getTitle());
+            System.out.println("Navigated to correct webpage");
+        } catch (Throwable pageNavigationError) {
+            System.out.println("Didn't navigate to correct webpage");
+        }
+
+        driver.quit();
+    }
+}
