@@ -18,11 +18,7 @@ Feature: Epam website
     When I enter every field with information
     And I click on two check marks
     And I click on submit button
-    And I complete CAPTCHA
     Then I should stay on same page
-    And I get confirmation that email was sent
-    And I stay on same page
-    But i dont see fields to enter
 
 
   Scenario: Getting information about post(Continuum)
