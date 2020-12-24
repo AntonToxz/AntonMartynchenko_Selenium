@@ -8,16 +8,15 @@ import org.testng.Assert;
 
 public class SearchJobSteps {
     public static SearchJob searchJob;
-    public static WebDriver driver;
 
+    public SearchJobSteps() {
+        DriverStatic.init();
+        searchJob = new SearchJob(DriverStatic.driver);
+    }
 
     @Given("I should be on careers page")
     public void iShouldBeOnCareersPage() {
-        System.setProperty("webdriver.chrome.driver", ConfigProp.getProperty("chromedriver"));
-        driver = new ChromeDriver();
-        searchJob = new SearchJob(driver);
-        driver.manage().window().maximize();
-        driver.get(ConfigProp.getProperty("careerspage"));
+        DriverStatic.driver.get(ConfigProp.getProperty("careerspage"));
     }
 
     @And("I enter keywords or job ID, city, skills, sign check marks")
@@ -33,12 +32,12 @@ public class SearchJobSteps {
     @Then("I should be able to get all results found about jobs")
     public void iShouldBeAbleToGetAllResultsFoundAboutJobs() {
         try {
-            Assert.assertEquals("Join our Team", driver.getTitle());
+            Assert.assertEquals("Join our Team", DriverStatic.driver.getTitle());
             System.out.println("Navigated to correct webpage");
         } catch (Throwable pageNavigationError) {
             System.out.println("Didn't navigate to correct webpage");
         }
 
-        driver.quit();
+        DriverStatic.driver.quit();
     }
 }

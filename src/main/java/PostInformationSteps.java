@@ -7,16 +7,15 @@ import org.testng.Assert;
 
 public class PostInformationSteps {
     public static PostInformation postInformation;
-    public static WebDriver driver;
 
+    public PostInformationSteps() {
+        DriverStatic.init();
+        postInformation = new PostInformation(DriverStatic.driver);
+    }
 
     @Given("I should be on main page")
     public void iShouldBeOnMainPage() {
-        System.setProperty("webdriver.chrome.driver", ConfigProp.getProperty("chromedriver"));
-        driver = new ChromeDriver();
-        postInformation = new PostInformation(driver);
-        driver.manage().window().maximize();
-        driver.get(ConfigProp.getProperty("mainpage"));
+        DriverStatic.driver.get(ConfigProp.getProperty("mainpage"));
     }
 
     @When("I click on Learn more button on exact post")
@@ -27,12 +26,12 @@ public class PostInformationSteps {
     @Then("I am directed to exact page with this post")
     public void iAmDirectedToExactPageWithThisPost() {
         try {
-            Assert.assertEquals("EPAM Continuum | EPAM", driver.getTitle());
+            Assert.assertEquals("EPAM Continuum | EPAM", DriverStatic.driver.getTitle());
             System.out.println("Navigated to correct webpage");
         } catch (Throwable pageNavigationError) {
             System.out.println("Didn't navigate to correct webpage");
         }
 
-        driver.quit();
+        DriverStatic.driver.quit();
     }
 }

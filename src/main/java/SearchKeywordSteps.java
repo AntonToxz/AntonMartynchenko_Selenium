@@ -8,16 +8,15 @@ import org.testng.Assert;
 
 public class SearchKeywordSteps {
     public static SearchKeyword searchKeyword;
-    public static WebDriver driver;
-    
+
+    public SearchKeywordSteps() {
+        DriverStatic.init();
+        searchKeyword = new SearchKeyword(DriverStatic.driver);
+    }
+
     @Given("I should click on search button on menu bar")
     public void iShouldClickOnSearchButtonOnMenuBar() {
-        System.setProperty("webdriver.chrome.driver", ConfigProp.getProperty("chromedriver"));
-        driver = new ChromeDriver();
-        searchKeyword = new SearchKeyword(driver);
-        driver.manage().window().maximize();
-        driver.get(ConfigProp.getProperty("mainpage"));
-
+        DriverStatic.driver.get(ConfigProp.getProperty("mainpage"));
         searchKeyword.clickSrchButt();
     }
 
@@ -34,13 +33,13 @@ public class SearchKeywordSteps {
     @Then("I should be able to get all results found on this website and be on search page")
     public void iShouldBeAbleToGetAllResultsFoundOnThisWebsite() {
         try {
-            Assert.assertEquals("Search", driver.getTitle());
+            Assert.assertEquals("Search", DriverStatic.driver.getTitle());
             System.out.println("Navigated to correct webpage");
         } catch (Throwable pageNavigationError) {
             System.out.println("Didn't navigate to correct webpage");
         }
 
-        driver.quit();
+        DriverStatic.driver.quit();
     }
 
 }

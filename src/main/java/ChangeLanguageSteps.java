@@ -8,16 +8,15 @@ import org.testng.Assert;
 
 public class ChangeLanguageSteps {
     public ChangeLanguage changeLanguage;
-    public static WebDriver driver;
+
+    public ChangeLanguageSteps() {
+        DriverStatic.init();
+        changeLanguage = new ChangeLanguage(DriverStatic.driver);
+    }
 
     @Given("^I am on main page$")
     public void mainPage() {
-        System.setProperty("webdriver.chrome.driver", ConfigProp.getProperty("chromedriver"));
-        driver = new ChromeDriver();
-        changeLanguage = new ChangeLanguage(driver);
-        driver.manage().window().maximize();
-
-        driver.get(ConfigProp.getProperty("mainpage"));
+        DriverStatic.driver.get(ConfigProp.getProperty("mainpage"));
     }
 
 
@@ -39,12 +38,12 @@ public class ChangeLanguageSteps {
     @Then("Everything on website should be translated to selected language and be on main page")
     public void checkTranslated() {
         try {
-            Assert.assertEquals("EPAM | Разработка ПО", driver.getTitle());
+            Assert.assertEquals("EPAM | Разработка ПО", DriverStatic.driver.getTitle());
             System.out.println("Right language");
         } catch (Throwable pageNavigationError) {
             System.out.println("Wrong Language");
         }
 
-        driver.quit();
+        DriverStatic.driver.quit();
     }
 }
